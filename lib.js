@@ -1,27 +1,9 @@
 import { bg } from "https://js.sabae.cc/find47images.js";
 
-import { create, add, style, div } from "https://js.sabae.cc/stdom.js";
+import { create, style, div } from "https://js.sabae.cc/stdom.js";
 import { GraphemeBreaker } from "https://js.sabae.cc/GraphemeBreaker.js";
 import { sleep } from "https://js.sabae.cc/sleep.js";
 import { waitClick } from "https://js.sabae.cc/waitClick.js";
-
-const getStyleDecoText = (color, decolor) => {
-  return {
-    "color": color,
-    "font-size": "5vw",
-    "letter-spacing": ".5vw",
-    "text-shadow": [
-      " 2px  2px",
-      "-2px  2px",
-      " 2px -2px",
-      "-2px -2px",
-      " 2px  0px",
-      " 0px  2px",
-      "-2px  0px",
-      " 0px -2px",
-      ].map(a => a + " 1px " + decolor).join(",")
-  };
-};
 
 let textscreen = null;
 const show = async (s, choice) => {
@@ -90,6 +72,24 @@ const show = async (s, choice) => {
   await sleep(100);
   textscreen.innerHTML = "";
   return res;
+};
+
+const getStyleDecoText = (color, decolor) => {
+  return {
+    "color": color,
+    "font-size": "5vw",
+    "letter-spacing": ".5vw",
+    "text-shadow": [
+      " 2px  2px",
+      "-2px  2px",
+      " 2px -2px",
+      "-2px -2px",
+      " 2px  0px",
+      " 0px  2px",
+      "-2px  0px",
+      " 0px -2px",
+      ].map(a => a + " 1px " + decolor).join(",")
+  };
 };
 
 export { bg, show };
