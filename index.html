@@ -1,0 +1,88 @@
+<meta charset=utf-8><script type=module>
+//import { bg, show } from "https://code4fukui.github.io/egadv/egadv.js";
+//import { show } from "https://code4fukui.github.io/egadv/egadv.js";
+import { show, bg } from "./egadv.js";
+import { getQueryParam } from "https://js.sabae.cc/getQueryParam.js";
+
+const parseMarkdown = (md) => {
+  const pages = [];
+  let title = null;
+  const ss = md.split("\n");
+  let tmp = null;
+  let sel = null;
+  let page = null;  
+  for (const s of ss) {
+    if (s.startsWith("# ")) {
+      title = s.substring(2);
+    } else if (s.startsWith("## ")) {
+      if (page) {
+        page.textContent = tmp.join("\n");
+        if (sel.length > 0) {
+          page.choice = sel;
+        }
+        pages.push(page);
+      }
+      const name = s.substring(3);
+      page = { name };
+      tmp = [];
+      sel = [];
+    } else {
+      if (page) {
+        const n = s.match(/^\[(.*)\]\((.*)\)/);
+        if (n) {
+          sel.push({ name: n[1], href: n[2] });
+        } else {
+          const n = s.match(/^\!\[(.*)\]\((.*)\)/);
+          if (n) {
+            page.bg = n[2];
+          } else {
+            tmp.push(s);
+          }
+        }
+      }
+    }
+  }
+  if (page) {
+    page.textContent = tmp.join("\n");
+    page.choice = sel;
+    pages.push(page);
+  }
+  return { title, pages }
+};
+
+onload = async () => {
+  //const url = "https://code4fukui.github.io/novel-fukui/紫式部の国府での一日.md";
+  const url = getQueryParam("url") || "https://code4fukui.github.io/novel-fukui/越前市黄金伝説.md";
+  const md = await (await fetch(url)).text();
+  const dom = parseMarkdown(md);
+  console.log(dom);
+  
+  await bg(null, true);
+  let npage = 0;
+  for (;;) {
+    const current = dom.pages[npage];
+    if (!current) {
+      break;
+    }
+    if (current.bg) {
+      console.log(current.bg);
+      await bg(current.bg, true);
+    }
+    const sel = current.choice?.map(i => i.name);
+    console.log(sel);
+    const n = await show(current.textContent, sel);
+    if (!sel) {
+      npage++;
+    } else {
+      const next = current.choice.find(i => i.name == n).href;
+      if (next.startsWith("#")) {
+        console.log(next);
+        npage = dom.pages.findIndex(i => i.name == next.substring(1));
+        console.log(npage);
+      } else {
+        document.location = next;
+      }
+    }
+  }
+};
+</script>
