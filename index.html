@@ -2,13 +2,23 @@
 import { show, bg } from "./egadv.js";
 import { getQueryParam } from "https://js.sabae.cc/getQueryParam.js";
 
+const getHash = () => {
+  const hash = document.location.hash;
+  if (!hash && hash.length == 0) {
+    return null;
+  }
+  return decodeURIComponent(hash.substring(1));
+};
+
 onload = async () => {
   const url = getQueryParam("url") || "https://code4fukui.github.io/novel-fukui/越前市黄金伝説.md";
   const md = await (await fetch(url)).text();
   const dom = Markdown.parse(md);
   
+  document.title = dom.title + " - egadv.js";
+  const hash = getHash();
+  let npage = hash ? dom.pages.findIndex(i => i.name == hash) : 0;
   await bg(null, true);
-  let npage = 0;
   for (;;) {
     const current = dom.pages[npage];
     if (!current) {
@@ -17,6 +27,7 @@ onload = async () => {
     if (current.bg) {
       await bg(current.bg, true);
     }
+    document.location.hash = current.name;
     const sel = current.choice?.map(i => i.name);
     const n = await show(current.textContent, sel);
     if (!sel) {
@@ -24,7 +35,8 @@ onload = async () => {
     } else {
       const next = current.choice.find(i => i.name == n).href;
       if (next.startsWith("#")) {
-        npage = dom.pages.findIndex(i => i.name == next.substring(1));
+        const name = next.substring(1);
+        npage = dom.pages.findIndex(i => i.name == name);
       } else {
         //document.location = next;
         window.open(next, "_blank");
