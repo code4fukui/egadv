@@ -40,7 +40,8 @@ const show = async (s, choice) => {
   spanc.style.wordBreak = "break-all";
   textscreen.appendChild(spanc);
 
-  const scroll = (c) => c.scrollIntoView({ behavior: "smooth", block: "end" });
+  //const scroll = (c) => c.scrollIntoView({ behavior: "smooth", block: "end" });
+  const scroll = (c) => document.body.scrollIntoView({ behavior: "smooth", block: "end" });
 
   const addText = async (comp, s) => {
     const ss = GraphemeBreaker.break(s);
