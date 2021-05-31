@@ -16,7 +16,7 @@ const show = async (s, choice) => {
   document.body.addEventListener("click", f);
   if (!textscreen) {
     textscreen = div();
-    textscreen.style.padding = ".5em";
+    textscreen.style.padding = ".5 .5 2.5em .5em";
     textscreen.className = "textScreen";
     style({ ".textScreen": getStyleDecoText("white", "black")});
     style({
@@ -41,7 +41,16 @@ const show = async (s, choice) => {
   textscreen.appendChild(spanc);
 
   //const scroll = (c) => c.scrollIntoView({ behavior: "smooth", block: "end" });
-  const scroll = (c) => document.body.scrollIntoView({ behavior: "smooth", block: "end" });
+  const scroll = (c) => {
+    /*
+    const e = document.documentElement;
+    const btm = e.scrollHeight - e.clientHeight;
+    if (screenY < btm) {
+    }
+    */
+    document.body.scrollIntoView({ behavior: "smooth", block: "end" });
+    //textscreen.scrollIntoView({ behavior: "smooth", block: "end" });
+  };
 
   const addText = async (comp, s) => {
     const ss = GraphemeBreaker.break(s);
