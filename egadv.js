@@ -16,7 +16,7 @@ const show = async (s, choice) => {
   document.body.addEventListener("click", f);
   if (!textscreen) {
     textscreen = div();
-    textscreen.style.padding = ".5 .5 2.5em .5em";
+    textscreen.style.padding = ".5 .5 3em .5em";
     textscreen.className = "textScreen";
     style({ ".textScreen": getStyleDecoText("white", "black")});
     style({
