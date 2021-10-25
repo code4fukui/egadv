@@ -1,7 +1,7 @@
 <html>
 <body>
 <script type="module">
-import { bg, show } from "https://code4fukui.github.io/egadv/egadv.js";
+import { bg, show, rnd } from "https://code4fukui.github.io/egadv/egadv.js";
 
 onload = async () => {
   for (;;) {
@@ -13,7 +13,11 @@ onload = async () => {
       break;
     }
   }
-  await show("おやすみ");
+  if (rnd(2) == 0) {
+    await show("おやすみ");
+  } else {
+    await show("バイバイ");
+  }
 };
 </script>
 </body>

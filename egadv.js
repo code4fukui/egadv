@@ -177,4 +177,4 @@ const bg = async (no, nowait) => {
   return data;
 };
 
-export { bg, show };
+export { bg, show, rnd };
