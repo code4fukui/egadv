@@ -1,7 +1,7 @@
 <html>
 <body>
 <script type="module">
-import { bg, show } from "https://code4fukui.github.io/egadv/egadv.js";
+import { bg, show, rnd } from "https://code4fukui.github.io/egadv/egadv.js";
 
 onload = async () => {
   let n = 1;
@@ -9,11 +9,20 @@ onload = async () => {
     const d = await bg();
     await show("ここは、どこだ？" + n);
     await show(d.pref + " の " + d.title + " というところらしい");
-
+    
     const flg = await show("やめる？", ["まだまだ", "やめる"]);
     if (flg == "やめる") {
       break;
     }
+  }
+
+  if (n == 1) {
+    await show("もっとみようよー");
+  }
+  if (rnd(2) == 0) {
+    await show("おやすみ");
+  } else {
+    await show("バイバイ");
   }
 };
 </script>

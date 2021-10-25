@@ -5,9 +5,8 @@ import { bg, show } from "https://code4fukui.github.io/egadv/egadv.js";
 
 onload = async () => {
   for (;;) {
-    const d = await bg();
+    await bg();
     await show("ここは、どこだ？");
-    await show(d.pref + " の " + d.title + " というところらしい");
   }
 };
 </script>
