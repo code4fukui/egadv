@@ -1,24 +1,17 @@
 # egadv
 
-## ノベルゲームづくりからのJavaScirpt入門
-https://fukuno.jig.jp/3211  
+## ノベルゲームづくりからのJavaScript入門
+
+https://fukuno.jig.jp/3211
 
 ## demo
-demo1  
-http://code4fukui.github.io/egadv/demo1.html  
 
-demo2  
-http://code4fukui.github.io/egadv/demo2.html  
-
-demo3  
-http://code4fukui.github.io/egadv/demo3.html  
-
-demo4  
-http://code4fukui.github.io/egadv/demo4.html  
-
-demo5  
-http://code4fukui.github.io/egadv/demo5.html  
+1. [HTMLはじめのいっぽ](step1.html) [demo](http://code4fukui.github.io/egadv/step1.html)
+2. [JavaScriptはじめのいっぽ](step2.html) [demo](http://code4fukui.github.io/egadv/step2.html)
+3. [ライブラリを使おう](step3.html) [demo](http://code4fukui.github.io/egadv/step3.html)
+4. [ノベルゲームっぽくする](step4.html) [demo](http://code4fukui.github.io/egadv/step4.html)
+5. [サンプルゲーム](step5.html) [demo](http://code4fukui.github.io/egadv/step5.html)
 
 ## ノベルゲームツール
-http://code4fukui.github.io/egadv/?url=https://code4fukui.github.io/novel-fukui/越前市黄金伝説.md  
 
+http://code4fukui.github.io/egadv/?url=https://code4fukui.github.io/novel-fukui/越前市黄金伝説.md

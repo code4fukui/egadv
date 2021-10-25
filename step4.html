@@ -1,0 +1,20 @@
+<html>
+<body>
+<script type="module">
+import { bg, show } from "https://code4fukui.github.io/egadv/egadv.js";
+
+onload = async () => {
+  for (;;) {
+    const d = await bg();
+    await show("ここは、どこだ？");
+    await show(d.pref + " の " + d.title + " というところらしい");
+    const flg = await show("やめる？", ["まだまだ", "やめる"]);
+    if (flg == "やめる") {
+      break;
+    }
+  }
+  await show("おやすみ");
+};
+</script>
+</body>
+</html>
