@@ -4,6 +4,7 @@ import { sleep } from "https://js.sabae.cc/sleep.js";
 import { waitClick } from "https://js.sabae.cc/waitClick.js";
 import { CSV } from "https://js.sabae.cc/CSV.js";
 import { waitImageLoad } from "https://js.sabae.cc/waitImageLoad.js";
+import { rnd } from "https://js.sabae.cc/rnd.js";
 
 const inittextsleep = 80;
 
@@ -122,13 +123,16 @@ let imglist = null;
 const bg = async (no, nowait) => {
 	document.body.style.backgroundColor = "black";
   let data = null;
-  if (no == null) {
-    return;
-  } else if (typeof no == "number") {
+  console.log(no)
+  if (no == undefined || typeof no == "number") {
     if (!imglist) {
       imglist = CSV.toJSON(await CSV.fetch("https://code4fukui.github.io/find47/find47images.csv"));
       //console.log(imglist);
     }
+    if (no == undefined) {
+      no = imglist[rnd(imglist.length)].id;
+    }
+    console.log(no)
     data = imglist.find(i => i.id == no);
     if (!data) {
       return;
@@ -161,7 +165,7 @@ const bg = async (no, nowait) => {
     div.style.bottom = ".2em";
     div.href = data.url;
     div.style.textDecoration = "none";
-    div.textContent = data.title + " © " + data.author + " クリエイティブ・コモンズ・ライセンス（表示4.0 国際）";
+    div.textContent = `FIND/47 no.${no} ${data.title} © ${data.author} クリエイティブ・コモンズ・ライセンス（表示4.0 国際）`;
     div.style.color = "white";
     div.style.fontSize = "70%";
   } else {
@@ -170,6 +174,7 @@ const bg = async (no, nowait) => {
 	if (!nowait) {
 		await sleep(1000);
 	}
+  return data;
 };
 
 export { bg, show };
