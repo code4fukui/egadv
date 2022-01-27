@@ -177,4 +177,6 @@ const bg = async (no, nowait) => {
   return data;
 };
 
-export { bg, show, rnd };
+const q = async (txt) => await show(txt, ["はい", "いいえ"]) == "はい";
+
+export { bg, show, rnd, q };
