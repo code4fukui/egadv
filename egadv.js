@@ -123,7 +123,7 @@ let imglist = null;
 const bg = async (no, nowait) => {
 	document.body.style.backgroundColor = "black";
   let data = null;
-  console.log(no)
+  //console.log(no)
   if (no == undefined || typeof no == "number") {
     if (!imglist) {
       imglist = CSV.toJSON(await CSV.fetch("https://code4fukui.github.io/find47/find47images.csv"));
@@ -132,7 +132,7 @@ const bg = async (no, nowait) => {
     if (no == undefined) {
       no = imglist[rnd(imglist.length)].id;
     }
-    console.log(no)
+    //console.log(no)
     data = imglist.find(i => i.id == no);
     if (!data) {
       return;
