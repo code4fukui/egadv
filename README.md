@@ -26,13 +26,13 @@ if (a == "福井") {
 }
 ```
 
-- bg
+### bg
 - 背景を表示する（無指定でFIND/47からランダムに表示、番号指定でFIND/47の画像、URLまたはファイル名指定でその画像）
 ```typescript
 declare function bg(num?: number | string): Promise<void>;
 ```
 
-- show
+### show
 - テキスト表示（第ニパラメータに配列で文字列を指定することで選択肢を表示、選択した文字列が返る）
 ```typescript
 declare function show(message: string, option?: string[]): Promise<string>;
