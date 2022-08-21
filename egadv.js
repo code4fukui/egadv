@@ -1,3 +1,6 @@
+// egadv - easy adventure game framework
+// https://github.com/code4fukui/egadv/
+
 import { create, style, div } from "https://js.sabae.cc/stdom.js";
 import { GraphemeBreaker } from "https://js.sabae.cc/GraphemeBreaker.js";
 import { sleep } from "https://js.sabae.cc/sleep.js";
