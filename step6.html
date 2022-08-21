@@ -3,29 +3,27 @@
 <script type="module">
 import { bg, show, rnd } from "https://code4fukui.github.io/egadv/egadv.js";
 
-onload = async () => {
-  let n = 1;
-  for (;;) {
-    const d = await bg(3333);
-    await show("ここは、どこだ？" + n);
-    await show(d.pref + " の " + d.title + " というところらしい");
-    
-    const flg = await show("やめる？", ["まだまだ", "やめる"]);
-    if (flg == "やめる") {
-      break;
-    }
-    n = n + 1;
+let n = 1;
+for (;;) {
+  const d = await bg(3333);
+  await show("ここは、どこだ？" + n);
+  await show(d.pref + " の " + d.title + " というところらしい");
+  
+  const flg = await show("やめる？", ["まだまだ", "やめる"]);
+  if (flg == "やめる") {
+    break;
   }
+  n = n + 1;
+}
 
-  if (n == 1) {
-    await show("もっとみようよー");
-  }
-  if (rnd(2) == 0) {
-    await show("おやすみ");
-  } else {
-    await show("バイバイ");
-  }
-};
+if (n == 1) {
+  await show("もっとみようよー");
+}
+if (rnd(2) == 0) {
+  await show("おやすみ");
+} else {
+  await show("バイバイ");
+}
 </script>
 </body>
 </html>
