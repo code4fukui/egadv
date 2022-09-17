@@ -3,12 +3,16 @@
 <script type="module">
 import { bg, show, rnd } from "https://code4fukui.github.io/egadv/egadv.js";
 
+await bg("E91624");
+await show("日本、ここどこクイズ！");
+
 let n = 1;
 for (;;) {
   const d = await bg();
   console.log(d);
   await show("第" + n + "問、ここは、どこだ？");
   await show(d.pref + " の " + d.title + " というところらしい");
+  await bg(d.Geo3x3);
 
   const flg = await show("やめる？", ["まだまだ", "やめる"]);
   if (flg == "やめる") {
