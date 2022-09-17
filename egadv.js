@@ -21,6 +21,7 @@ const show = async (s, choice) => {
   if (!textscreen) {
     textscreen = div();
     textscreen.style.padding = ".5 .5 3em .5em";
+    textscreen.style.position = "relative";
     textscreen.className = "textScreen";
     style({ ".textScreen": getStyleDecoText("white", "black")});
     style({
