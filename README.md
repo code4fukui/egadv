@@ -8,6 +8,7 @@
 4. [変数と定数](step4.html) [demo](http://code4fukui.github.io/egadv/step4.html)
 5. [条件判断と分岐](step5.html) [demo](http://code4fukui.github.io/egadv/step5.html)
 6. [乱数を使った応用](step6.html) [demo](http://code4fukui.github.io/egadv/step6.html)
+7. [地図表示](step7.html) [demo](http://code4fukui.github.io/egadv/step7.html)
 
 ## ノベルゲームツール
 
@@ -24,12 +25,13 @@ const a = await show("ここはどこ？", ["福井", "東京"]);
 if (a == "福井") {
   await show("ほんと！？");
 }
+await bg("E91624");
 ```
 
 ### bg
-- 背景を表示する（無指定でFIND/47からランダムに表示、番号指定でFIND/47の画像、URLまたはファイル名指定でその画像）
+- 背景を表示する（無指定でFIND/47からランダムに表示、番号指定でFIND/47の画像、URL指定でその画像、[Geo3x3](https://geo3x3.com/)指定で地図表示）
 ```typescript
-declare function bg(num?: number | string): Promise<void>;
+declare function bg(num?: number | string): Promise<any>;
 ```
 
 ### show

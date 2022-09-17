@@ -8,6 +8,8 @@ import { waitClick } from "https://js.sabae.cc/waitClick.js";
 import { CSV } from "https://js.sabae.cc/CSV.js";
 import { waitImageLoad } from "https://js.sabae.cc/waitImageLoad.js";
 import { rnd } from "https://js.sabae.cc/rnd.js";
+import { map } from "./map.js";
+import { Geo3x3 } from "https://geo3x3.com/Geo3x3.js";
 
 const inittextsleep = 80;
 
@@ -23,6 +25,7 @@ const show = async (s, choice) => {
     textscreen = div();
     textscreen.style.padding = ".5 .5 3em .5em";
     textscreen.style.position = "relative";
+    textscreen.style.zIndex = 100;
     textscreen.className = "textScreen";
     style({ ".textScreen": getStyleDecoText("white", "black")});
     style({
@@ -129,7 +132,16 @@ const bg = async (no, nowait) => {
   document.body.style.margin = 0;
 	document.body.style.backgroundColor = "black";
   let data = null;
-  //console.log(no)
+  
+  // for map
+  if (Array.isArray(no)) {
+    return await map(no[0], no[1], no[2]);
+  }
+  if (typeof no == "string" && (no[0] == "E" || no[0] == "W")) {
+    const p = Geo3x3.decode(no);
+    return await map(p.lat, p.lng, p.level);
+  }
+  
   if (no == undefined || typeof no == "number") {
     if (!imglist) {
       imglist = CSV.toJSON(await CSV.fetch("https://code4fukui.github.io/find47/find47images.csv"));
@@ -181,6 +193,7 @@ const bg = async (no, nowait) => {
 	if (!nowait) {
 		await sleep(1000);
 	}
+  await map(null);
   return data;
 };
 
