@@ -13,6 +13,7 @@ const inittextsleep = 80;
 
 let textscreen = null;
 const show = async (s, choice) => {
+  document.body.style.margin = 0;
   let textsleep = inittextsleep;
   const f = () => {
     textsleep = 1;
@@ -125,6 +126,7 @@ const getStyleDecoText = (color, decolor) => {
 //import { bg } from "https://js.sabae.cc/find47images.js";
 let imglist = null;
 const bg = async (no, nowait) => {
+  document.body.style.margin = 0;
 	document.body.style.backgroundColor = "black";
   let data = null;
   //console.log(no)
