@@ -7,7 +7,6 @@ let divpos = null;
 export const map = async (lat, lng, zoom) => {
   const showPos = () => {
     const p = _map.getCenter();
-    const fix = (n) => n.toFixed(5);
     const fixLng = (n) => {
       if (n > 180) {
         return fixLng(n - 360);
@@ -17,6 +16,7 @@ export const map = async (lat, lng, zoom) => {
       return n;
     };
     divpos.childNodes[1].textContent = Geo3x3.encode(p.lat, fixLng(p.lng), _map.getZoom());
+    //const fix = (n) => n.toFixed(5);
     //divpos.textContent = `[${fix(p.lat)}, ${fix(p.lng)}, ${_map.getZoom()}]`;
     //console.log(p.lat, p.lng, _map.getZoom(), Geo3x3.encode(p.lat, fixLng(p.lng), _map.getZoom()));
   };
