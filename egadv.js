@@ -47,6 +47,7 @@ const show = async (s, choice) => {
   const spanc = create("span");
   spanc.style.paddingBottom = "1em";
   spanc.style.wordBreak = "break-all";
+  spanc.style.lineBreak = "anywhere";
   textscreen.appendChild(spanc);
 
   //const scroll = (c) => c.scrollIntoView({ behavior: "smooth", block: "end" });
