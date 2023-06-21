@@ -14,7 +14,7 @@ import { Geo3x3 } from "https://geo3x3.com/Geo3x3.js";
 const inittextsleep = 80;
 
 let textscreen = null;
-const show = async (s, choice) => {
+const show = async (s, ...choices) => {
   document.body.style.margin = 0;
   let textsleep = inittextsleep;
   const f = () => {
@@ -79,6 +79,15 @@ const show = async (s, choice) => {
   await addText(spanc, s);
 
   let res = 0;
+  const choice = (() => {
+    if (choices.length == 0) {
+      return null;
+    }
+    if (Array.isArray(choices[0])) {
+      return choices[0];
+    }
+    return choices;
+  })();
   if (!choice) {
     spanc.appendChild(create("br"));
     const p = create("span");

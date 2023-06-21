@@ -1,0 +1,13 @@
+<html>
+<body>
+<script type="module">
+import { bg, show } from "https://code4fukui.github.io/egadv/egadv.js";
+//import { bg, show } from "./egadv.js";
+
+const n = await show("どこへいこう？", "山", "川", "丘", "帰る");
+await show(n);
+const n2 = await show("どこへいこう？", ["山", "川", "丘", "帰る"]);
+await show(n2);
+</script>
+</body>
+</html>
