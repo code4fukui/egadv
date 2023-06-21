@@ -4,7 +4,7 @@ let _map = null;
 let divmap = null;
 let divpos = null;
 
-export const map = async (lat, lng, zoom) => {
+export const map = async (lat, lng, zoom = 18) => {
   const showPos = () => {
     const p = _map.getCenter();
     const fixLng = (n) => {
