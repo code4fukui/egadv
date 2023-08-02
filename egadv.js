@@ -137,6 +137,35 @@ const getStyleDecoText = (color, decolor) => {
 };
 
 //import { bg } from "https://js.sabae.cc/find47images.js";
+
+const get = (id) => {
+  const c = document.getElementById(id);
+  if (c) {
+    return c;
+  }
+  const c2 = document.createElement("a");
+  c2.id = id;
+  document.body.appendChild(c2);
+  return c2;
+};
+
+const showCredit = (credit, url) => {
+  const div = get("find47_bg_credit");
+  if (credit) {
+    div.style.position = "absolute";
+    div.style.right = ".2em";
+    div.style.bottom = ".2em";
+    div.href = url;
+    div.style.textDecoration = "none";
+    div.textContent = credit;
+    div.style.color = "white";
+    div.style.fontSize = "70%";
+    div.style.zIndex = 101;
+  } else {
+    div.textContent = "";
+  }
+};
+
 let imglist = null;
 const bg = async (no, nowait) => {
   document.body.style.margin = 0;
@@ -184,29 +213,12 @@ const bg = async (no, nowait) => {
   document.body.style.backgroundSize = "100% auto";
   document.body.style.backgroundAttachment = "fixed";
 
-  const get = (id) => {
-    const c = document.getElementById(id);
-    if (c) {
-      return c;
-    }
-    const c2 = document.createElement("a");
-    c2.id = id;
-    document.body.appendChild(c2);
-    return c2;
-  };
   const div = get("find47_bg_credit");
   if (data.title && data.author) {
-    div.style.position = "absolute";
-    div.style.right = ".2em";
-    div.style.bottom = ".2em";
-    div.href = data.url;
-    div.style.textDecoration = "none";
-    div.textContent = `FIND/47 no.${no} ${data.title} © ${data.author} クリエイティブ・コモンズ・ライセンス（表示4.0 国際）`;
-    div.style.color = "white";
-    div.style.fontSize = "70%";
-    div.style.zIndex = -1;
+    const credit = `FIND/47 no.${no} ${data.title} © ${data.author} クリエイティブ・コモンズ・ライセンス（表示4.0 国際）`
+    showCredit(credit, data.url);
   } else {
-    div.textContent = "";
+    showCredit();
   }
   if (!nowait) {
     await sleep(1000);
@@ -215,7 +227,26 @@ const bg = async (no, nowait) => {
   return data;
 };
 
+// bg8 - bg_hachioji
+let imglist8 = null;
+
+const bg8 = async (no, ver = 1) => {
+  if (!imglist8) {
+    imglist8 = CSV.toJSON(await CSV.fetch("https://code4fukui.github.io/hachioji-keikan100/hachioji-keikan100.csv"));
+  }
+  if (!no) {
+    no = rnd(100) + 1;
+  }
+  const res = imglist8.find(d => d.no == no);
+  const img0 = res.image;
+  const img = img0.substring(0, img0.length - 5) + ver + ".jpg";
+  await bg(img);
+  const url = "https://www.city.hachioji.tokyo.jp/shisei/001/006/001/004/p032712.html";
+  showCredit(`八王子景観100選 No.${no}「${res.name}」、八王子市、クリエイティブ・コモンズ・ライセンス表示4.0`, url);
+  return res;
+};
+
 const q = async (txt) => await show(txt, ["はい", "いいえ"]) == "はい";
 const p = show;
 
-export { bg, show, rnd, q, p, map };
+export { bg, show, rnd, q, p, map, bg8 };

@@ -1,0 +1,20 @@
+<html>
+<body>
+<script type="module">
+//import { bg8, show } from "https://code4fukui.github.io/egadv/egadv.js";
+import { bg8, show } from "./egadv.js";
+
+for (;;) {
+  const n = await bg8();
+  console.log(n);
+  await show("ここはどこ？");
+  await show("ここは、東京都八王子市の「" + n.name + "」（八王子景観100選 No." + n.no + "）");
+  await show(n.説明);
+  if (await show("行ってみる？", "はい", "いいえ") == "はい") {
+    location.href = "https://www.google.co.jp/maps/dir//" + n.lat + "," + n.lon;
+    break;
+  }
+}
+</script>
+</body>
+</html>
