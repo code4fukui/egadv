@@ -140,7 +140,7 @@ const getStyleDecoText = (color, decolor) => {
 let imglist = null;
 const bg = async (no, nowait) => {
   document.body.style.margin = 0;
-	document.body.style.backgroundColor = "black";
+  document.body.style.backgroundColor = "black";
   let data = null;
   
   // for map
@@ -176,25 +176,25 @@ const bg = async (no, nowait) => {
     document.body.style.backgroundColor = "black";
     return;
   }
-	const img = new Image();
-	img.src = data.url_image;
-	await waitImageLoad(img);
-	document.body.style.backgroundImage = `url('${data.url_image}')`;
-	document.body.style.backgroundRepeat = "no-repeat";
-	document.body.style.backgroundSize = "100% auto";
+  const img = new Image();
+  img.src = data.url_image;
+  await waitImageLoad(img);
+  document.body.style.backgroundImage = `url('${data.url_image}')`;
+  document.body.style.backgroundRepeat = "no-repeat";
+  document.body.style.backgroundSize = "100% auto";
   document.body.style.backgroundAttachment = "fixed";
 
-	const get = (id) => {
-		const c = document.getElementById(id);
-		if (c) {
-			return c;
-		}
-		const c2 = document.createElement("a");
-		c2.id = id;
-		document.body.appendChild(c2);
-		return c2;
-	};
-	const div = get("find47_bg_credit");
+  const get = (id) => {
+    const c = document.getElementById(id);
+    if (c) {
+      return c;
+    }
+    const c2 = document.createElement("a");
+    c2.id = id;
+    document.body.appendChild(c2);
+    return c2;
+  };
+  const div = get("find47_bg_credit");
   if (data.title && data.author) {
     div.style.position = "absolute";
     div.style.right = ".2em";
@@ -208,9 +208,9 @@ const bg = async (no, nowait) => {
   } else {
     div.textContent = "";
   }
-	if (!nowait) {
-		await sleep(1000);
-	}
+  if (!nowait) {
+    await sleep(1000);
+  }
   await map(null);
   return data;
 };
