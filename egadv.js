@@ -15,6 +15,32 @@ const inittextsleep = 80;
 
 let textscreen = null;
 const show = async (s, ...choices) => {
+  const choice = (() => {
+    if (choices.length == 0) {
+      return null;
+    }
+    if (Array.isArray(choices[0])) {
+      return choices[0];
+    }
+    return choices;
+  })();
+
+  if (!window.document) {
+    if (!choice) {
+      alert(s);
+    } else {
+      for (let i = 1; i <= choice.length; i++) {
+        console.log(i + ". " + choice[i - 1]);
+      }
+      for (;;) {
+        const n = parseInt(prompt("num"));
+        if (!isNaN(n) && n >= 1 && n <= choice.length) {
+          return choice[n - 1];
+        }
+      }
+    }
+    return;
+  }
   document.body.style.margin = 0;
   let textsleep = inittextsleep;
   const f = () => {
@@ -79,15 +105,6 @@ const show = async (s, ...choices) => {
   await addText(spanc, s);
 
   let res = 0;
-  const choice = (() => {
-    if (choices.length == 0) {
-      return null;
-    }
-    if (Array.isArray(choices[0])) {
-      return choices[0];
-    }
-    return choices;
-  })();
   if (!choice) {
     spanc.appendChild(create("br"));
     const p = create("span");
@@ -168,6 +185,10 @@ const showCredit = (credit, url) => {
 
 let imglist = null;
 const bg = async (no, nowait) => {
+  if (!window.document) {
+    console.log("bg", no);
+    return;
+  }
   document.body.style.margin = 0;
   document.body.style.backgroundColor = "black";
   let data = null;
