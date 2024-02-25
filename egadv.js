@@ -307,7 +307,7 @@ const fg = async (name) => {
     return;
   }
   const img = new Image();
-  img.src = `img_fg/${name}.png`;
+  img.src = name;
   img.style.opacity = 0;
   img.style.position = "fixed";
   img.style.top = "10%";
