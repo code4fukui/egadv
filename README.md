@@ -9,7 +9,11 @@
 5. [条件判断と分岐](step5.html) [demo](http://code4fukui.github.io/egadv/step5.html)
 6. [乱数を使った応用](step6.html) [demo](http://code4fukui.github.io/egadv/step6.html)
 7. [地図表示](step7.html) [demo](http://code4fukui.github.io/egadv/step7.html)
-7. [立ち絵追加](step8.html) [demo](http://code4fukui.github.io/egadv/step8.html)
+
+## デモ
+
+8. [立ち絵](demo8.html) [demo](http://code4fukui.github.io/egadv/demo8.html)
+9. [ナビへのリンク](demo9.html) [demo](http://code4fukui.github.io/egadv/demo9.html)
 
 ## ノベルゲームツール
 
