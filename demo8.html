@@ -1,0 +1,25 @@
+<html>
+<body>
+<script type="module">
+import { fg, bg, show, navi } from "./egadv.js";
+
+await bg("長野県");
+await fg("yuimihime");
+await show("こんにちは、私は結美姫（ゆいみひめ）\n水引のまち長野県飯田市生まれのオープンデータアイドルです");
+await show("長野県内をFIND/47による写真オープンデータでご案内します")
+
+for (;;) {
+  await fg();
+  const n = await bg("長野県");
+  await show("ここはどこ？");
+  await fg("yuimihime");
+  await show(`ここは、${n.title}です`);
+  if (await show("行ってみますか？", "はい", "いいえ") == "はい") {
+    navi(n);
+    await show("いかがでしたか？");
+    await show("他にも見どころがたくさんあります");
+  }
+}
+</script>
+</body>
+</html>

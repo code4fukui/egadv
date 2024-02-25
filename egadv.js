@@ -10,6 +10,7 @@ import { waitImageLoad } from "https://js.sabae.cc/waitImageLoad.js";
 import { rnd } from "https://js.sabae.cc/rnd.js";
 import { map } from "./map.js";
 import { Geo3x3 } from "https://geo3x3.com/Geo3x3.js";
+import { JAPAN_PREF } from "https://js.sabae.cc/JAPAN_PREF.js";
 
 const inittextsleep = 80;
 
@@ -184,13 +185,26 @@ const showCredit = (credit, url) => {
 };
 
 let imglist = null;
+const initImageList = async () => {
+  if (!imglist) {
+    imglist = CSV.toJSON(await CSV.fetch("https://code4fukui.github.io/find47/find47images.csv"));
+    imglist.forEach(i => {
+      const p = Geo3x3.decode(i.Geo3x3);
+      i.lat = p.lat;
+      i.lng = p.lng;
+      i.level = p.level;
+      i.id = parseInt(i.id);
+    });
+    console.log(imglist);
+  }
+};
 const bg = async (no, nowait) => {
   if (!window.document) {
     console.log("bg", no);
     return;
   }
   document.body.style.margin = 0;
-  document.body.style.backgroundColor = "black";
+  document.body.style.background = "black";
   let data = null;
   
   // for map
@@ -202,17 +216,17 @@ const bg = async (no, nowait) => {
       const p = Geo3x3.decode(no);
       return await map(p.lat, p.lng, p.level);
     } else if (no === "") {
-      document.body.style.backgroundImage = "";
-      document.body.style.backgroundColor = "black";
+      document.body.style.background = "black";
       return;
+    } else if (JAPAN_PREF.indexOf(no)) {
+      await initImageList();
+      const list = imglist.filter(i => i.pref == no);
+      data = list[rnd(list.length)];
     } else {
       data = { url_image: no };
     }
   } else if (no == undefined || typeof no == "number") {
-    if (!imglist) {
-      imglist = CSV.toJSON(await CSV.fetch("https://code4fukui.github.io/find47/find47images.csv"));
-      //console.log(imglist);
-    }
+    await initImageList();
     if (no == undefined) {
       no = imglist[rnd(imglist.length)].id;
     }
@@ -222,21 +236,17 @@ const bg = async (no, nowait) => {
       return;
     }
   } else {
-    document.body.style.backgroundImage = "";
-    document.body.style.backgroundColor = "black";
+    document.body.style.background = "black";
     return;
   }
   const img = new Image();
   img.src = data.url_image;
   await waitImageLoad(img);
-  document.body.style.backgroundImage = `url('${data.url_image}')`;
-  document.body.style.backgroundRepeat = "no-repeat";
-  document.body.style.backgroundSize = "100% auto";
-  document.body.style.backgroundAttachment = "fixed";
-
+  document.body.style.background = `fixed black url('${data.url_image}') no-repeat 0% 0% / 100% auto`;
+  
   const div = get("find47_bg_credit");
   if (data.title && data.author) {
-    const credit = `FIND/47 no.${no} ${data.title} © ${data.author} クリエイティブ・コモンズ・ライセンス（表示4.0 国際）`
+    const credit = `FIND/47 no.${data.id} ${data.title} © ${data.author} クリエイティブ・コモンズ・ライセンス（表示4.0 国際）`
     showCredit(credit, data.url);
   } else {
     showCredit();
@@ -270,4 +280,57 @@ const bg8 = async (no, ver = 1) => {
 const q = async (txt) => await show(txt, ["はい", "いいえ"]) == "はい";
 const p = show;
 
-export { bg, show, rnd, q, p, map, bg8 };
+// fg
+let fgimg = null;
+let initfg = false;
+const animfadein = `@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+`;
+const fg = async (name) => {
+  if (!initfg) {
+    const css = document.createElement("style");
+    css.textContent = animfadein;
+    document.body.appendChild(css);
+    initfg = true;
+  }
+  if (fgimg) {
+    document.body.removeChild(fgimg);
+    fgimg = null;
+  }
+  if (name == null) {
+    return;
+  }
+  const img = new Image();
+  img.src = `img_fg/${name}.png`;
+  img.style.opacity = 0;
+  img.style.position = "fixed";
+  img.style.top = "10%";
+  img.style.right = "5%";
+  img.style.width = "30%";
+  img.style.animation = ".5s ease-in-out 0s 1 normal forwards running fadein";
+  document.body.appendChild(img);
+  fgimg = img;
+
+  //const s = document.body.style;
+  //s.background = `fixed url("img_fg/${name}.png") no-repeat 90% 15% / 20% auto, ${s.background}`;
+  //s.animation = "3s linear 1s fadein";
+  //document.body.style.background = `fixed black url('${data.url_image}') no-repeat 0% 0% / 100% auto`;
+};
+
+// navi
+const navi = (n) => {
+  if (typeof n == "string") {
+    n = Geo3x3.decode(n);
+  }
+  const lat = n.lat;
+  const lng = n.lng || n.lon;
+  open("https://www.google.co.jp/maps/dir//" + lat + "," + lng, "_blank");
+};
+
+export { bg, show, rnd, q, p, map, bg8, fg, navi };

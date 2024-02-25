@@ -1,0 +1,23 @@
+<html>
+<body>
+<script type="module">
+import { bg, show, navi } from "./egadv.js";
+
+for (;;) {
+  const n = await bg();
+  for (;;) {
+    const a = await show(n.pref + "の" + n.title + "(" + n.Geo3x3 + ")", "地図", "ナビ", "写真", "他の場所");
+    if (a == "地図") {
+      await bg(n.Geo3x3);
+    } else if (a == "ナビ") {
+      await navi(n.Geo3x3);
+    } else if (a == "写真") {
+      await bg(n.id);
+    } else {
+      break;
+    }
+  }
+}
+</script>
+</body>
+</html>

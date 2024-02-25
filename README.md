@@ -9,6 +9,7 @@
 5. [条件判断と分岐](step5.html) [demo](http://code4fukui.github.io/egadv/step5.html)
 6. [乱数を使った応用](step6.html) [demo](http://code4fukui.github.io/egadv/step6.html)
 7. [地図表示](step7.html) [demo](http://code4fukui.github.io/egadv/step7.html)
+7. [立ち絵追加](step8.html) [demo](http://code4fukui.github.io/egadv/step8.html)
 
 ## ノベルゲームツール
 
@@ -29,18 +30,31 @@ await bg("E91624");
 ```
 
 ### bg
-- 背景を表示する（無指定でFIND/47からランダムに表示、番号指定でFIND/47の画像、URL指定でその画像、[Geo3x3](https://geo3x3.com/)指定で地図表示）
-```typescript
-declare function bg(num?: number | string): Promise<any>;
+- 背景を表示する（無指定でFIND/47からランダムに表示、番号指定でFIND/47の画像、URL指定でその画像、[Geo3x3](https://geo3x3.com/)指定で地図表示、都道府県名指定でその県内でランダムに表示）
+```javascript
+function bg(num)
 ```
 
 ### show
-- テキスト表示（第ニパラメータに配列で文字列を指定することで選択肢を表示、選択した文字列が返る）
+- テキスト表示（第二パラメータ以降または第ニパラメータに配列で文字列を指定することで選択肢を表示、選択した文字列が返る）
 ```typescript
-declare function show(message: string, option?: string[]): Promise<string>;
+function show(message, option1, option2 ...)
+```
+
+### fg
+- 立ち絵を表示する（現在、yuimihime のみ対応、無指定で非表示）
+```typescript
+function fg(name)
+```
+
+### navi
+- その場所へのナビ用リンク（GoogleMaps）を開く
+```typescript
+function navi(pos)
 ```
 
 ## ブログ
 
 - [ノベルゲームづくりで学ぶ、はじめてのウェブアプリ開発、Code for FUKUI x 仁愛大学生編](https://fukuno.jig.jp/3380)
 - [ノベルゲームづくりからのJavaScirpt入門、FIND47写真オープンデータで簡単に美しく](https://fukuno.jig.jp/3211)
+- [オープンデータアイドルが案内する長野県](https://fukuno.jig.jp/4231)
