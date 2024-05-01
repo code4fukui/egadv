@@ -218,7 +218,7 @@ const bg = async (no, nowait) => {
     } else if (no === "") {
       document.body.style.background = "black";
       return;
-    } else if (JAPAN_PREF.indexOf(no)) {
+    } else if (JAPAN_PREF.indexOf(no) >= 0) {
       await initImageList();
       const list = imglist.filter(i => i.pref == no);
       data = list[rnd(list.length)];
