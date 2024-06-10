@@ -11,6 +11,7 @@ import { rnd } from "https://js.sabae.cc/rnd.js";
 import { map } from "./map.js";
 import { Geo3x3 } from "https://geo3x3.com/Geo3x3.js";
 import { JAPAN_PREF } from "https://js.sabae.cc/JAPAN_PREF.js";
+import { beep } from "https://code4fukui.github.io/beep/beep.js";
 
 const inittextsleep = 80;
 
@@ -333,4 +334,4 @@ const navi = (n) => {
   open("https://www.google.co.jp/maps/dir//" + lat + "," + lng, "_blank");
 };
 
-export { bg, show, rnd, q, p, map, bg8, fg, navi };
+export { bg, show, rnd, q, p, map, bg8, fg, navi, beep };
