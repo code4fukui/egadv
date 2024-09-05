@@ -241,9 +241,12 @@ const bg = async (no, nowait) => {
     return;
   }
   const img = new Image();
-  img.src = data.url_image;
+  //img.src = data.url_image;
+  const url_image = "https://code4fukui.github.io/find47/photo/" + data.id + ".jpg";
+  img.src = url_image;
   await waitImageLoad(img);
-  document.body.style.background = `fixed black url('${data.url_image}') no-repeat 0% 0% / 100% auto`;
+  //document.body.style.background = `fixed black url('${data.url_image}') no-repeat 0% 0% / 100% auto`;
+  document.body.style.background = `fixed black url('${url_image}') no-repeat 0% 0% / 100% auto`;
   
   const div = get("find47_bg_credit");
   if (data.title && data.author) {
