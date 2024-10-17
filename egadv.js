@@ -223,8 +223,13 @@ const bg = async (no, nowait) => {
       await initImageList();
       const list = imglist.filter(i => i.pref == no);
       data = list[rnd(list.length)];
-    } else {
+    } else if (no.startsWith("https://")) {
       data = { url_image: no };
+    } else {
+      const param = `{"prompt":"${no}"}`;
+      const url = "https://img-maker.fukuno.com/api/?" + encodeURIComponent(param);
+      console.log(url)
+      data = { url_image: url };
     }
   } else if (no == undefined || typeof no == "number") {
     await initImageList();
@@ -242,7 +247,7 @@ const bg = async (no, nowait) => {
   }
   const img = new Image();
   //img.src = data.url_image;
-  const url_image = "https://code4fukui.github.io/find47/photo/" + data.id + ".jpg";
+  const url_image = data.url_image ?? "https://code4fukui.github.io/find47/photo/" + data.id + ".jpg";
   img.src = url_image;
   await waitImageLoad(img);
   //document.body.style.background = `fixed black url('${data.url_image}') no-repeat 0% 0% / 100% auto`;
