@@ -333,14 +333,17 @@ const fg = async (name) => {
   //document.body.style.background = `fixed black url('${data.url_image}') no-repeat 0% 0% / 100% auto`;
 };
 
-// navi
+const jump = (url) => {
+  open(url, "_blank");
+};
+
 const navi = (n) => {
   if (typeof n == "string") {
     n = Geo3x3.decode(n);
   }
   const lat = n.lat;
   const lng = n.lng || n.lon;
-  open("https://www.google.co.jp/maps/dir//" + lat + "," + lng, "_blank");
+  jump("https://www.google.co.jp/maps/dir//" + lat + "," + lng);
 };
 
-export { bg, show, rnd, q, p, map, bg8, fg, navi, beep };
+export { bg, show, rnd, q, p, map, bg8, fg, navi, jump, beep };

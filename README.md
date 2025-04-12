@@ -51,6 +51,12 @@ function show(message, option1, option2 ...)
 function fg(name)
 ```
 
+### jump
+- URL開く
+```typescript
+function jump(url)
+```
+
 ### navi
 - その場所へのナビ用リンク（GoogleMaps）を開く
 ```typescript
