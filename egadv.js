@@ -241,6 +241,7 @@ const bg = async (no, nowait) => {
     if (!data) {
       return;
     }
+    delete data.url_image; // ignore find47 link
   } else {
     document.body.style.background = "black";
     return;
