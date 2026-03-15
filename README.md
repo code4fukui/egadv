@@ -1,5 +1,9 @@
 # egadv - easy adventure game framework
 
+> 日本語のREADMEはこちらです: [README.ja.md](README.ja.md)
+
+egadv is an easy-to-use framework for creating visual novel-style adventure games. It supports features like background images, text display, choices, map display, and more, and uses open data sources like FIND/47 for backgrounds.
+
 ## Demo
 [Interactive demo page](http://code4fukui.github.io/egadv/?url=https://code4fukui.github.io/novel-fukui/越前市黄金伝説.md)
 
@@ -23,10 +27,10 @@ Then use the functions to create your game:
 
 ```javascript
 await bg();
-await show("おはよう！");
-const a = await show("ここはどこ？", ["福井", "東京"]);
-if (a == "福井") {
-  await show("ほんと！？");
+await show("Good morning!");
+const a = await show("Where am I?", ["Fukui", "Tokyo"]);
+if (a == "Fukui") {
+  await show("Really!?");
 }
 await bg("E91624");
 ```
