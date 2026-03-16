@@ -41,4 +41,4 @@ See the [README.md](https://github.com/code4fukui/egadv/blob/main/README.md) for
 This project uses the FIND/47 and Geo3x3 open data sources for background images and map functionality.
 
 ## License
-This project is licensed under the MIT License.
+MIT License — see [LICENSE](LICENSE).
