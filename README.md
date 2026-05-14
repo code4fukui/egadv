@@ -1,70 +1,99 @@
 # egadv - easy adventure game framework
 
-## ノベルゲームづくりからのJavaScript入門
+> 日本語のREADMEはこちらです: [README.ja.md](README.ja.md)
 
-1. [HTMLはじめのいっぽ](step1.html) [demo](http://code4fukui.github.io/egadv/step1.html)
-2. [JavaScriptはじめのいっぽ](step2.html) [demo](http://code4fukui.github.io/egadv/step2.html)
-3. [繰り返しとライブラリ](step3.html) [demo](http://code4fukui.github.io/egadv/step3.html)
-4. [変数と定数](step4.html) [demo](http://code4fukui.github.io/egadv/step4.html)
-5. [条件判断と分岐](step5.html) [demo](http://code4fukui.github.io/egadv/step5.html)
-6. [乱数を使った応用](step6.html) [demo](http://code4fukui.github.io/egadv/step6.html)
-7. [地図表示](step7.html) [demo](http://code4fukui.github.io/egadv/step7.html)
+`egadv` is a lightweight JavaScript framework for creating visual novel-style adventure games. It's designed to be easy to use, making it an excellent tool for learning JavaScript fundamentals through game development. The framework leverages open data sources for rich content like background images and maps.
 
-## デモ
+## Demo
 
-8. [立ち絵](demo8.html) [demo](http://code4fukui.github.io/egadv/demo8.html)
-9. [ナビへのリンク](demo9.html) [demo](http://code4fukui.github.io/egadv/demo9.html)
+[**Interactive Demo**](http://code4fukui.github.io/egadv/?url=https://code4fukui.github.io/novel-fukui/越前市黄金伝説.md)
 
-## ノベルゲームツール
+*(This demo is powered by the built-in Markdown parser, loading an external story file.)*
 
-http://code4fukui.github.io/egadv/?url=https://code4fukui.github.io/novel-fukui/越前市黄金伝説.md
+## Features
 
-## 使い方
+-   **Simple API:** Create game logic with just a few `async` functions. No complex setup required.
+-   **Dynamic Backgrounds:** Use photos from [FIND/47](https://find47.com/) by ID or prefecture, generate images from text prompts, or provide any image URL.
+-   **Interactive Storytelling:** Display text with a typewriter effect and present multiple-choice options to the player.
+-   **Character Sprites:** Overlay foreground character images on top of backgrounds.
+-   **Mapping:** Display interactive maps using Geo3x3 coordinates.
+-   **Markdown-based Games:** Write your entire game scenario in a simple Markdown file.
+-   **External Linking:** Open navigation apps or external web pages.
+-   **Sound Effects:** Add simple tones with a `beep()` function.
 
-基本的な使い方
-```javascript
-import { bg, show } from "https://js.sabae.cc/egadv.js";
-await bg();
-await show("おはよう！");
-const a = await show("ここはどこ？", ["福井", "東京"]);
-if (a == "福井") {
-  await show("ほんと！？");
-}
-await bg("E91624");
+## Quick Start
+
+Create an HTML file and add the following code. No installation or build step is needed.
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>My egadv Game</title>
+</head>
+<body>
+  <script type="module">
+    import { bg, show } from "https://code4fukui.github.io/egadv/egadv.js";
+
+    // Show a random background from Fukui Prefecture
+    await bg("福井県");
+    await show("Hello from Fukui!");
+    const choice = await show("Where do you want to go?", ["Tokyo", "Kyoto"]);
+
+    if (choice === "Tokyo") {
+      await bg("東京都");
+      await show("Welcome to Tokyo!");
+    } else {
+      await bg("京都府");
+      await show("Welcome to Kyoto!");
+    }
+    await show("The End.");
+  </script>
+</body>
+</html>
 ```
 
-### bg
-- 背景を表示する（無指定でFIND/47からランダムに表示、番号指定でFIND/47の画像、URL指定でその画像、[Geo3x3](https://geo3x3.com/)指定で地図表示、都道府県名指定でその県内でランダムに表示）
-```javascript
-function bg(num)
-```
+## Core Functions
 
-### show
-- テキスト表示（第二パラメータ以降または第ニパラメータに配列で文字列を指定することで選択肢を表示、選択した文字列が返る）
-```typescript
-function show(message, option1, option2 ...)
-```
+-   `show(message, [choices])`: Displays `message` text. If `choices` (an array of strings) is provided, it waits for the user to select one and returns the selected string.
+-   `bg(source)`: Sets the background. `source` can be:
+    -   A **number**: A FIND/47 photo ID (e.g., `2892`).
+    -   A **Japanese prefecture name**: A random photo from that prefecture (e.g., `"福井県"`).
+    -   A **Geo3x3 code**: An interactive map of that location (e.g., `"E91624"`).
+    -   An **image URL**: Any direct image link.
+    -   A **text prompt**: An AI-generated image (e.g., `"cat"`).
+    -   `undefined`: A random photo from anywhere in Japan.
+-   `fg(path)`: Displays a foreground character sprite from the given image `path`. Call with no arguments to hide the sprite.
+-   `map(lat, lng, zoom)`: Displays a map at the given coordinates.
+-   `beep(frequency, duration)`: Plays a simple sound.
+-   `rnd(max)`: Returns a random integer between 0 and `max - 1`.
 
-### fg
-- 立ち絵を表示する（現在、yuimihime のみ対応、無指定で非表示）
-```typescript
-function fg(name)
-```
+## Creating a Game from Markdown
 
-### jump
-- URL開く
-```typescript
-function jump(url)
-```
+You can create a full game by structuring a `.md` file and loading it via the `url` query parameter.
 
-### navi
-- その場所へのナビ用リンク（GoogleMaps）を開く
-```typescript
-function navi(pos)
-```
+**Format:**
+-   `# Game Title`: Sets the title of the game.
+-   `## Page Name`: Defines a scene or page.
+-   `
+![alt text](image_url)
+`: Sets the background image for the scene.
+-   `[Choice Text](link)`: Creates a choice. The link can be a hash to another page (`#Page Name`) or an external URL.
+-   Any other text is displayed as dialogue.
 
-## ブログ
+**Example (`story.md`):**
+```markdown
+# My First Story
+## Start
 
-- [ノベルゲームづくりで学ぶ、はじめてのウェブアプリ開発、Code for FUKUI x 仁愛大学生編](https://fukuno.jig.jp/3380)
-- [ノベルゲームづくりからのJavaScirpt入門、FIND47写真オープンデータで簡単に美しく](https://fukuno.jig.jp/3211)
-- [オープンデータアイドルが案内する長野県](https://fukuno.jig.jp/4231)
+![bg](https://code4fukui.github.io/find47/photo/2892.jpg)
+
+You find yourself in a beautiful place.
+What do you do?
+[Explore the mountain](#Mountain)
+[Go to the river](#River)
+
+## Mountain
+
+![bg](https://code4fukui.github.io
